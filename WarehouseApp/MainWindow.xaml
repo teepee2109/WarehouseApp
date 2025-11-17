@@ -1,0 +1,52 @@
+﻿<Window x:Class="WarehouseApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Warehouse Management"
+        Height="717" Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F4F4">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#1F1F1F" Grid.Column="0">
+            <StackPanel Margin="10">
+                <TextBlock Text="WAREHOUSE" Foreground="White" FontSize="22" FontWeight="Bold" Margin="10"/>
+                <Button Content="Dashboard" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="BtnDashboard"/>
+                <Button Content="Sản phẩm" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="Product_Click"/>
+                <Button Content="Danh mục" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="Category_Click"/>
+                <Button Content="Nhà cung cấp" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="Suplier_Click"/>
+                <Button Content="Kho hàng" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="WareHouse_Click"/>
+
+                <Separator Margin="10"/>
+
+                <Button Content="Nhập kho" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="Import_Click"/>
+                <Button Content="Xuất kho" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="Export_Click"/>
+                <Button Content="Lịch sử Nhập/Xuất" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="History_Click"/>
+                <Separator Margin="10"/>
+                
+                <Button Content="Đăng xuất" Height="40" Margin="0 5" Background="#333" Foreground="White" Click="BtnLogout"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Column="1" Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="White" BorderBrush="#DDD" BorderThickness="0 0 0 1" Grid.Row="0">
+                <DockPanel Margin="10">
+                    <TextBlock Text="Xin chào, Admin" Foreground="#444" DockPanel.Dock="Right" Width="100"/>
+                </DockPanel>
+            </Border>
+
+            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" />
+
+        </Grid>
+
+    </Grid>
+</Window>

@@ -1,0 +1,88 @@
+﻿<Page x:Class="WarehouseApp.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WarehouseApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DashboardPage" Background="#F4F7FC"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Style x:Key="KpiCard" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style x:Key="KpiHeaderText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#555555"/>
+        </Style>
+        <Style x:Key="KpiValueText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#003366"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource KpiCard}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource KpiHeaderText}"
+                               Text="TỔNG SẢN PHẨM TỒN KHO"/>
+                    <TextBlock x:Name="tbTotalStock" Text="0"
+                               Style="{StaticResource KpiValueText}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Style="{StaticResource KpiCard}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource KpiHeaderText}"
+                               Text="SẢN PHẨM SẮP HẾT"/>
+                    <TextBlock x:Name="tbWarningCount" Text="0"
+                               Style="{StaticResource KpiValueText}"
+                               Foreground="Red"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <GroupBox Grid.Row="1" Header="🚨 Hàng sắp hết (Cần nhập thêm)" FontWeight="Bold" FontSize="14" Padding="10">
+            <DataGrid x:Name="dgLowStockItems"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ProductId}" Width="60"/>
+                    <DataGridTextColumn Header="Tên sản phẩm" Binding="{Binding ProductName}" Width="2*"/>
+                    <DataGridTextColumn Header="Danh mục" Binding="{Binding Category.CategoryName}" Width="1.5*"/>
+                    <DataGridTextColumn Header="Tồn kho" Binding="{Binding Quantity}" Width="1*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+    </Grid>
+</Page>

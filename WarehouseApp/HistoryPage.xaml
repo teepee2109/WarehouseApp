@@ -1,0 +1,93 @@
+﻿<Page x:Class="WarehouseApp.HistoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WarehouseApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" Background="#F4F7FC"
+      Title="HistoryPage" Loaded="Page_Loaded" Width="1220">
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Tìm kiếm và Lọc" Grid.Row="0" FontWeight="Bold" Padding="10" Margin="0,0,0,15">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Từ ngày:" VerticalAlignment="Center"/>
+                <DatePicker x:Name="dpFromDate" Width="130" Margin="5"/>
+
+                <Label Content="Đến ngày:" VerticalAlignment="Center"/>
+                <DatePicker x:Name="dpToDate" Width="130" Margin="5"/>
+
+                <Label Content="Loại phiếu:" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                <ComboBox x:Name="cbTypeFilter" Width="120" Margin="5"/>
+
+                <Label Content="Kho:" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                <ComboBox x:Name="cbWarehouseFilter" Width="150" Margin="5"
+                          DisplayMemberPath="WarehouseName"
+                          SelectedValuePath="WarehouseId"/>
+
+                <Button x:Name="btnFilter" Content="Lọc" Width="100"
+                        Click="BtnFilter_Click"/>
+            </StackPanel>
+        </GroupBox>
+
+        <DataGrid x:Name="dgHistory" 
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True" 
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Loại" Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Type}" 
+                                       FontWeight="Bold" 
+                                       Margin="5">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsImport}" Value="True">
+                                                <Setter Property="Foreground" Value="Green"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsImport}" Value="False">
+                                                <Setter Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="ID" Binding="{Binding RecordId}" Width="60"/>
+                <DataGridTextColumn Header="Ngày" Binding="{Binding Date, StringFormat='dd/MM/yyyy HH:mm'}" Width="1.5*"/>
+                <DataGridTextColumn Header="Kho" Binding="{Binding WarehouseName}" Width="1.5*"/>
+                <DataGridTextColumn Header="Người tạo" Binding="{Binding UserName}" Width="1.5*"/>
+                <DataGridTextColumn Header="Đối tượng" Binding="{Binding Reference}" Width="2*"/>
+                <DataGridTextColumn Header="Ghi chú" Binding="{Binding Note}" Width="2*"/>
+
+                <DataGridTemplateColumn Header="Chi tiết" Width="2*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Xem" 
+                                    Click="BtnViewDetails_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Page>

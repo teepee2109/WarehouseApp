@@ -1,0 +1,97 @@
+﻿<Page x:Class="WarehouseApp.ProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WarehouseApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProductPage">
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Margin="0,0,0,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <Label Content="Tìm kiếm:" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBox x:Name="txtSearch" Width="200" ToolTip="Tìm theo tên sản phẩm"/>
+
+                    <Label Content="Danh mục:" VerticalAlignment="Center" FontWeight="Bold" Margin="15,0,0,0"/>
+                    <ComboBox x:Name="cbCategoryFilter" Width="180" ToolTip="Lọc theo danh mục"/>
+
+                    <Button x:Name="btnFilter" Content="Lọc" Click="BtnFilter_Click"/>
+                </StackPanel>
+
+                <Button x:Name="btnAddProduct" 
+                        Content="+ Thêm Sản phẩm" 
+                        Grid.Column="1" 
+                        HorizontalAlignment="Right"
+                        Background="#28A745" 
+                        Foreground="White" 
+                        FontWeight="Bold"
+                        Click="BtnAddProduct_Click"/>
+            </Grid>
+        </Border>
+
+        <DataGrid x:Name="dgProducts" 
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True" 
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ProductId}" Width="60"/>
+                <DataGridTextColumn Header="Tên Sản phẩm" Binding="{Binding ProductName}" Width="2*"/>
+                <DataGridTextColumn Header="Danh mục" Binding="{Binding Category.CategoryName}" Width="1.5*"/>
+                <DataGridTextColumn Header="Đơn vị" Binding="{Binding Unit}" Width="1*"/>
+                <DataGridTextColumn Header="Giá" Binding="{Binding Price, StringFormat='{}{0:N0} ₫'}" Width="1.2*"/>
+                <DataGridTextColumn Header="Mô tả" Binding="{Binding Description}" Width="2*"/>
+
+                <DataGridTemplateColumn Header="Hành động" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnEdit" Content="Sửa" 
+                                        Margin="5,2" 
+                                        Click="BtnEdit_Click"/>
+                                <Button x:Name="btnDelete" Content="Xóa" 
+                                        Margin="5,2" 
+                                        Background="#DC3545" 
+                                        Foreground="White" 
+                                        Click="BtnDelete_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+
+</Page>
